@@ -121,6 +121,73 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
 @media (prefers-reduced-motion: no-preference) {
   .anim { transition: r 300ms ease, opacity 300ms ease, width 300ms ease, x 300ms ease; }
 }
+
+.fb{position:relative;min-width:0}
+.fb input{position:absolute;opacity:0;pointer-events:none}
+.fb .fbrow{display:flex;gap:28px;align-items:flex-start}
+.fb .fbscroll{overflow-x:auto;flex:none;max-width:100%}
+.fb .fbd{position:relative;width:760px;height:410px}
+.fb .fbd svg{position:absolute;inset:0}
+.fb .fbb{position:absolute;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1.5px solid;border-radius:8px;cursor:pointer;padding:2px 8px;line-height:1.2;transition:background .15s,color .15s}
+.fb .fbb b{font-size:15px;font-weight:700}
+.fb .fbb small{font-size:12px;color:var(--muted);margin-top:2px}
+.fb .fbb.ext{border-color:var(--duerfen);background:var(--duerfen-soft)}
+.fb .fbb.int{border-color:var(--koennen);background:var(--koennen-soft)}
+.fb .fbb.msg{border-color:var(--brand);background:var(--wollen-soft)}
+.fb .fbb.proc{border-color:var(--fg);background:var(--surface)}
+.fb .fbb.ext.top,.fb .fbb.int.top{background:var(--surface)}
+.fb .lane{position:absolute;top:-22px;font:700 12px/1 Lato,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.fb .fbp{flex:1;min-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.fb .fbp .pt{display:none}
+.fb .fbp h4{font-size:18px;margin-bottom:6px}
+.fb .fbp p{font-size:15px;line-height:1.5;color:var(--muted)}
+.fb .types{margin-top:18px}
+.fb .types h4{font-size:15px;margin-bottom:8px}
+.fb .fbchips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.fb .fbchips label{display:inline-block;font-size:14px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg)}
+.fb .fbchips label.el{border-color:var(--brand)}
+.fb .tt{display:none;font-size:14px;color:var(--muted);margin-top:10px;line-height:1.45}
+.fb .src{max-width:none;font-size:12px;color:var(--muted);line-height:1.45;margin-top:14px}
+.fb #fb-if:checked~.fbrow .fbb.b-if{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-if:checked~.fbrow .p-if{display:block}
+.fb #fb-es:checked~.fbrow .fbb.b-es{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-es:checked~.fbrow .p-es{display:block}
+.fb #fb-ev:checked~.fbrow .fbb.b-ev{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-ev:checked~.fbrow .p-ev{display:block}
+.fb #fb-ee:checked~.fbrow .fbb.b-ee{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-ee:checked~.fbrow .p-ee{display:block}
+.fb #fb-fm:checked~.fbrow .fbb.b-fm{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-fm:checked~.fbrow .p-fm{display:block}
+.fb #fb-lf:checked~.fbrow .fbb.b-lf{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-lf:checked~.fbrow .p-lf{display:block}
+.fb #fb-is:checked~.fbrow .fbb.b-is{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-is:checked~.fbrow .p-is{display:block}
+.fb #fb-iv:checked~.fbrow .fbb.b-iv{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-iv:checked~.fbrow .p-iv{display:block}
+.fb #fb-ie:checked~.fbrow .fbb.b-ie{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-ie:checked~.fbrow .p-ie{display:block}
+.fb #fb-sh:checked~.fbrow .fbb.b-sh{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-sh:checked~.fbrow .p-sh{display:block}
+.fb #fb-lp:checked~.fbrow .fbb.b-lp{outline:3px solid var(--brand);outline-offset:2px}
+.fb #fb-lp:checked~.fbrow .p-lp{display:block}
+.fb #fb-t1:checked~.fbrow .tt-t1{display:block}
+.fb #fb-t1:checked~.fbrow label[for=fb-t1]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
+.fb #fb-t2:checked~.fbrow .tt-t2{display:block}
+.fb #fb-t2:checked~.fbrow label[for=fb-t2]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
+.fb #fb-t3:checked~.fbrow .tt-t3{display:block}
+.fb #fb-t3:checked~.fbrow label[for=fb-t3]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
+.fb #fb-t4:checked~.fbrow .tt-t4{display:block}
+.fb #fb-t4:checked~.fbrow label[for=fb-t4]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
+.fb #fb-t5:checked~.fbrow .tt-t5{display:block}
+.fb #fb-t5:checked~.fbrow label[for=fb-t5]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
+.fb #fb-t6:checked~.fbrow .tt-t6{display:block}
+.fb #fb-t6:checked~.fbrow label[for=fb-t6]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
+.fb #fb-t7:checked~.fbrow .tt-t7{display:block}
+.fb #fb-t7:checked~.fbrow label[for=fb-t7]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
+.fb #fb-t8:checked~.fbrow .tt-t8{display:block}
+.fb #fb-t8:checked~.fbrow label[for=fb-t8]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
+
+@media (max-width:900px){.fb .fbrow{flex-direction:column}}
 </style>
 
 <div class="wrap">
@@ -225,6 +292,11 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
         <p>Zielt eher auf Korrektur und Leistungsverbesserung. In Coaching, Beratung oder Lernbegleitung findet es im selben dialogischen Rahmen statt wie externe Reflexion, aber der Fokus der Reflexion bleibt das tiefere Verstehen.</p>
       </div>
     </div>
+    <div class="head" style="margin-top:18px">
+      <h3 style="font-size:1.4rem">Wie Feedback wirkt: zwei Schleifen, die sich gegenseitig steuern</h3>
+      <p>Feedback wirkt nur, wenn die äußere Rückmeldung auf den inneren Vergleich der Lernenden trifft. Klick auf einen Baustein, um ihn zu erklären.</p>
+    </div>
+<div class='fb'><input type='radio' name='fbx' id='fb-if'><input type='radio' name='fbx' id='fb-es'><input type='radio' name='fbx' id='fb-ev'><input type='radio' name='fbx' id='fb-ee'><input type='radio' name='fbx' id='fb-fm' checked><input type='radio' name='fbx' id='fb-lf'><input type='radio' name='fbx' id='fb-is'><input type='radio' name='fbx' id='fb-iv'><input type='radio' name='fbx' id='fb-ie'><input type='radio' name='fbx' id='fb-sh'><input type='radio' name='fbx' id='fb-lp'><input type='radio' name='fbt' id='fb-t1'><input type='radio' name='fbt' id='fb-t2'><input type='radio' name='fbt' id='fb-t3'><input type='radio' name='fbt' id='fb-t4'><input type='radio' name='fbt' id='fb-t5'><input type='radio' name='fbt' id='fb-t6'><input type='radio' name='fbt' id='fb-t7'><input type='radio' name='fbt' id='fb-t8'><div class='fbrow'><div class='fbscroll'><div class='fbd' style='margin-top:22px'><span class='lane' style='left:0;color:var(--duerfen)'>Feedbackquelle: Lehrkraft, Peer, Medium</span><span class='lane' style='left:480px;color:var(--koennen)'>Lernende Person</span><svg width='760' height='410' viewBox='0 0 760 410' aria-hidden='true'><defs><marker id='fbah' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='7' markerHeight='7' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='currentColor'/></marker></defs><g style='color:var(--muted)' stroke='currentColor' stroke-width='2' fill='none'><path d='M140,44 L140,68' marker-end='url(#fbah)'/><path d='M620,44 L620,68' marker-end='url(#fbah)'/><path d='M140,120 L140,148' marker-end='url(#fbah)'/><path d='M620,120 L620,148' marker-end='url(#fbah)'/><path d='M140,250 L140,222' marker-end='url(#fbah)'/><path d='M585,250 L585,222' marker-end='url(#fbah)'/><path d='M280,185 L298,185' marker-end='url(#fbah)'/><path d='M460,185 L478,185' marker-end='url(#fbah)'/><path d='M735,220 L735,348' marker-end='url(#fbah)'/><path d='M600,378 L562,378' marker-end='url(#fbah)'/><path d='M240,350 L240,302' marker-end='url(#fbah)'/><path d='M520,350 L520,302' marker-end='url(#fbah)'/></g></svg><label for='fb-if' class='fbb ext top b-if' style='left:0px;top:0px;width:280px;height:44px'><b>Instruktionale Faktoren</b></label><label for='fb-es' class='fbb ext b-es' style='left:0px;top:70px;width:280px;height:50px'><b>Externe Standards</b><small>Sollwert der Feedbackquelle</small></label><label for='fb-ev' class='fbb ext b-ev' style='left:0px;top:150px;width:280px;height:70px'><b>Externer Vergleich</b><small>Einschätzung trifft Standard</small></label><label for='fb-ee' class='fbb ext b-ee' style='left:0px;top:250px;width:280px;height:50px'><b>Externe Einschätzung</b><small>Rückmeldung von außen zum Stand</small></label><label for='fb-fm' class='fbb msg b-fm' style='left:300px;top:150px;width:160px;height:70px'><b>Feedback&shy;nachricht</b><small>bewertend + unterstützend</small></label><label for='fb-lf' class='fbb int top b-lf' style='left:480px;top:0px;width:280px;height:44px'><b>Faktoren der Lernenden</b></label><label for='fb-is' class='fbb int b-is' style='left:480px;top:70px;width:280px;height:50px'><b>Innere Standards</b><small>eigener Sollwert</small></label><label for='fb-iv' class='fbb int b-iv' style='left:480px;top:150px;width:280px;height:70px'><b>Innerer Vergleich</b><small>drei Vergleiche, eine Entscheidung</small></label><label for='fb-ie' class='fbb int b-ie' style='left:480px;top:250px;width:210px;height:50px'><b>Innere Einschätzung</b><small>Selbsteinschätzung</small></label><label for='fb-sh' class='fbb int b-sh' style='left:600px;top:350px;width:160px;height:56px'><b>Steuerungs&shy;handlung</b><small>korrigieren, ausarbeiten</small></label><label for='fb-lp' class='fbb proc b-lp' style='left:200px;top:350px;width:360px;height:56px'><b>Lernprozess</b><small>Kompetenzerwerb: kognitiv, metakognitiv, motivational</small></label></div></div><div class='fbp'><div class='pt p-if'><h4>Instruktionale Faktoren</h4><p>Ziele, Standards und Erwartungen, das gewählte Vorgehen, Inhalte und Aufgaben sowie die Erfahrung der begleitenden Person. Sie prägen, woran die Feedbackquelle misst.</p></div><div class='pt p-es'><h4>Externe Standards</h4><p>Wie die Feedbackquelle Anforderungen und angestrebte Kompetenzen versteht. Das ist ihr Sollwert für den Lernprozess.</p></div><div class='pt p-ev'><h4>Externer Vergleich</h4><p>Die Feedbackquelle vergleicht ihre Einschätzung mit den Standards. Daraus formuliert sie die Feedbacknachricht.</p></div><div class='pt p-ee'><h4>Externe Einschätzung</h4><p>Lehrkraft, Peer oder Medium schätzen den aktuellen Lernstand ein. Ergebnis ist eine äußere Rückmeldung zum erreichten Stand.</p></div><div class='pt p-fm'><h4>Feedbacknachricht</h4><p>Sie enthält eine bewertende Information (wie weit ist das Ziel noch entfernt?) und eine unterstützende Information (Hinweise, wie es weitergehen kann). Auch ohne Lücke ist sie wertvoll, weil sie den erreichten Stand bestätigt.</p></div><div class='pt p-lf'><h4>Faktoren der Lernenden</h4><p>Eigene Ziele und Ansprüche, Vorwissen, kognitive und metakognitive Fähigkeiten, Motivation und Willenskraft. Sie prägen, woran Lernende sich selbst messen.</p></div><div class='pt p-is'><h4>Innere Standards</h4><p>Die eigene Vorstellung davon, was die Aufgabe verlangt und wann sie gut gelöst ist.</p></div><div class='pt p-iv'><h4>Innerer Vergleich</h4><p>Lernende vergleichen (1) ihr Ziel mit der eigenen Einschätzung, (2) ihr Ziel mit der Feedbacknachricht und (3) die eigene mit der äußeren Rückmeldung. Daraus leiten sie mögliche nächste Schritte ab und wählen einen aus.</p></div><div class='pt p-ie'><h4>Innere Einschätzung</h4><p>Lernende schätzen selbst ein, wo sie stehen. Ergebnis ist eine innere Rückmeldung zum eigenen Kompetenzstand.</p></div><div class='pt p-sh'><h4>Steuerungshandlung</h4><p>Der gewählte nächste Schritt wird umgesetzt, zum Beispiel einen Fehler korrigieren, eine Lösung ausarbeiten oder die Strategie wechseln.</p></div><div class='pt p-lp'><h4>Lernprozess</h4><p>Gesteuert wird der Erwerb von Kompetenzen: Wissen und Können, aber auch metakognitive und motivationale Strategien. Beide Seiten schätzen diesen Prozess fortlaufend ein, so schließen sich die zwei Schleifen.</p></div><div class='types'><h4>Was eine Feedbacknachricht enthalten kann</h4><ul class='fbchips'><li><label for='fb-t1' class=''>Gesamtleistung</label></li><li><label for='fb-t2' class=''>Ergebnis</label></li><li><label for='fb-t3' class=''>Richtige Lösung</label></li><li><label for='fb-t4' class='el'>Anforderungen</label></li><li><label for='fb-t5' class='el'>Konzepte</label></li><li><label for='fb-t6' class='el'>Fehler</label></li><li><label for='fb-t7' class='el'>Vorgehen</label></li><li><label for='fb-t8' class='el'>Metakognition</label></li></ul><div class='tt tt-t1'>Rückmeldung nach mehreren Aufgaben, etwa Anteil richtiger Lösungen, Zahl der Fehler oder eine Note.</div><div class='tt tt-t2'>Sagt, ob eine Antwort richtig oder falsch ist, oder markiert Fehler.</div><div class='tt tt-t3'>Nennt die korrekte Antwort oder zeigt eine Musterlösung.</div><div class='tt tt-t4'>Ausführliches Feedback zu Regeln, Bedingungen und Anforderungen der Aufgabe.</div><div class='tt tt-t5'>Ausführliches Feedback mit Hinweisen auf die Merkmale der zugrunde liegenden Begriffe, etwa durch Beispiele.</div><div class='tt tt-t6'>Ausführliches Feedback zu Ort, Art und Ursache von Fehlern.</div><div class='tt tt-t7'>Ausführliches Feedback mit Hinweisen auf Lösungswege und Strategien.</div><div class='tt tt-t8'>Ausführliches Feedback zu Strategien, das eigene Lernen zu planen, zu überwachen und zu steuern.</div></div></div></div><p class='src'>Nach dem Modell zweier gekoppelter Feedback-Schleifen von Susanne Narciss (Quelle: „Interactive Two Feedback Loops Model“, ITFL). Narciss, S. (2006). Informatives tutorielles Feedback. Münster: Waxmann. Narciss, S. (2008). Feedback strategies for interactive learning tasks. In J. M. Spector et al. (Hrsg.), Handbook of Research on Educational Communications and Technology (3. Aufl., S. 125–144). Mahwah, NJ: Erlbaum. Narciss, S. (2013). Designing and evaluating tutoring feedback strategies for digital learning environments on the basis of the interactive tutoring feedback model. Digital Education Review, 23, 7–26. Darstellung vereinfacht und mit eigenen Begriffen.</p></div>
   </section>
   <!-- 2 Scaffolding -->
   <section id="scaffolding">
@@ -336,7 +408,7 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
     <div class="note" style="display: grid; gap: 8px;">
       <p>Grundlage: Miro-Board „Dynamic Scaffolding in Innovation Management“, Frame „Growth OS in der Bildung“ und die zugehörigen Frames.</p>
       <p>Quellen der verwendeten Modelle: „9 Levels of Value“ (Wertebenen), „House of Change“ (Phasen der Veränderung), „ITFL“ (Feedback-Schleife). Die Namen sind Bezeichnungen der jeweiligen Urheber. Diese Seite beschreibt die Ideen mit eigenen Begriffen.</p>
-      <p>Das Feedback-Diagramm ist auf dem Board nur als Bild hinterlegt und hier nicht im Detail übernommen.</p>
+      <p>Die Feedback-Schleife ist nach Susanne Narciss (2006, 2008, 2013) vereinfacht nachgebaut, Quellenangaben direkt beim Diagramm.</p>
     </div>
   </footer>
 </div>
