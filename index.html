@@ -193,6 +193,9 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
 
 @media (max-width:900px){.fb .fbrow{flex-direction:column}}
 
+.topline { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+.plink { font: 700 0.9rem/1 var(--body); color: var(--fg); text-decoration: none; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 9px 14px; }
+.plink:hover { border-color: var(--fg); }
 /* Vollbild */
 .fsbar { display: flex; justify-content: flex-end; margin: 0 0 6px; }
 .fsbtn { display: inline-flex; align-items: center; gap: 6px; font: 700 0.85rem/1 var(--body); color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
@@ -219,7 +222,7 @@ body.fs-open { overflow: hidden; }
 
 <div class="wrap">
   <header>
-    <div class="brand" aria-label="Innovation2Didactics"><span class="o">I</span>nnovation<span class="o">2D</span>idactics</div>
+    <div class="topline"><div class="brand" aria-label="Innovation2Didactics"><span class="o">I</span>nnovation<span class="o">2D</span>idactics</div><a class="plink" href="praesentation.html">Als Präsentation öffnen →</a></div>
     <span class="eyebrow">Growth OS · Bildung</span>
     <h1>Growth OS in der Bildung</h1>
     <p class="lede">Veränderung ist Lernen. Wer in einer Organisation etwas verändert, betritt Neuland und lernt dabei selbst, als Person, im Team und als ganze Organisation. Diese Seite zeigt das am Beispiel des wichtigsten Anwendungsfalls, der Schule. Growth OS beschreibt diesen Lernweg: vom Ziel über Wollen, Können und Dürfen bis zu Feedback und Scaffolding, die ihn begleiten.</p>
