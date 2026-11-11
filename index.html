@@ -1,0 +1,732 @@
+<title>Growth OS Ablauf</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap">
+<style>
+/* Layout: one reading column; each section pairs a short argument with one interactive diagram. Colours and type follow Innovation2Didactics (i2d.info): Lato, signal orange, deep blue, teal-green on mint-white. */
+:root {
+  --bg: #f6fbfa;
+  --surface: #ffffff;
+  --fg: #212121;
+  --muted: #5b6b70;
+  --line: #d6e3e2;
+  --brand: #fc6933;
+  --wollen: #e45a26;
+  --koennen: #2f7d77;
+  --duerfen: #11447d;
+  --wollen-soft: #fde3d6;
+  --koennen-soft: #d9eeeb;
+  --duerfen-soft: #dbe6f3;
+  --beyond: #c2453a;
+  --start: #a8743f; --start-soft: #f6eadb;
+  --mint-soft: #e6f6f2; --blue-soft: #e1ecf6;
+  --display: "Lato", "Segoe UI", system-ui, sans-serif;
+  --body: "Lato", "Segoe UI", system-ui, sans-serif;
+  --mono: "Lato", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1822; --surface: #13222f; --fg: #e9f2f1; --muted: #9db0b5; --line: #26394a; --brand: #ff8656;
+    --wollen: #ff8656; --koennen: #5fbcb2; --duerfen: #7ea6dc;
+    --wollen-soft: #3e2318; --koennen-soft: #163733; --duerfen-soft: #182c45;
+    --beyond: #e8796e; --start: #d6a46f; --start-soft: #33281c; --mint-soft: #13302c; --blue-soft: #172a40; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1822; --surface: #13222f; --fg: #e9f2f1; --muted: #9db0b5; --line: #26394a; --brand: #ff8656;
+  --wollen: #ff8656; --koennen: #5fbcb2; --duerfen: #7ea6dc;
+  --wollen-soft: #3e2318; --koennen-soft: #163733; --duerfen-soft: #182c45;
+  --beyond: #e8796e; --start: #d6a46f; --start-soft: #33281c; --mint-soft: #13302c; --blue-soft: #172a40; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 400 1.0625rem/1.7 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 48px 80px; display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.12; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 400; letter-spacing: 0; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.2rem); font-weight: 400; }
+h3 { font-size: 1.15rem; font-weight: 500; }
+p { margin: 0; max-width: 65ch; }
+.eyebrow { font: 500 0.75rem/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.2rem; color: var(--muted); }
+header { display: grid; gap: 18px; padding: clamp(20px, 4vw, 40px); border-radius: 16px;
+  background: radial-gradient(ellipse at 0% 100%, var(--wollen-soft), transparent 55%), radial-gradient(ellipse at 100% 80%, var(--duerfen-soft), transparent 55%), radial-gradient(ellipse at 50% 0%, var(--mint-soft), transparent 70%), var(--surface); }
+.brand { font: 400 clamp(1.3rem, 3vw, 1.7rem)/1 var(--display); letter-spacing: 0.02em; color: var(--fg); }
+.brand .o { color: var(--brand); }
+.formula { font: 500 1rem/1.4 var(--mono); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px; }
+.formula span.t { padding: 4px 10px; border-radius: 4px; }
+.w { color: var(--wollen); } .k { color: var(--koennen); } .d { color: var(--duerfen); }
+.formula .w { background: var(--wollen-soft); } .formula .k { background: var(--koennen-soft); } .formula .d { background: var(--duerfen-soft); }
+nav.toc { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 0.85rem/1.4 var(--mono); }
+nav.toc a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line); }
+nav.toc a:hover, nav.toc a:focus-visible { border-color: var(--fg); }
+section { display: grid; gap: 22px; }
+section > .head { display: grid; gap: 10px; }
+.split { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } }
+.figure { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; min-width: 0; }
+.figure svg { display: block; width: 100%; height: auto; }
+.caption { font: 400 0.8rem/1.45 var(--mono); color: var(--muted); margin-top: 10px; }
+svg text { font-family: var(--display); fill: var(--fg); }
+svg .lbl { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+.node { cursor: pointer; }
+.node:focus { outline: none; }
+.node:focus-visible rect { stroke-width: 3; }
+.panel { display: grid; gap: 14px; min-width: 0; }
+.tag { font: 500 0.75rem/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+.chips li { font: 400 0.85rem/1.3 var(--mono); padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.group { display: grid; gap: 8px; }
+.group h4 { margin: 0; font: 500 0.78rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tabs button, .toggle {
+  font: 500 0.9rem/1 var(--display); padding: 9px 14px; border-radius: 6px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+}
+.tabs button[aria-pressed="true"] { color: var(--surface); border-color: transparent; }
+.tabs button[data-dim="wollen"][aria-pressed="true"] { background: var(--wollen); }
+.tabs button[data-dim="koennen"][aria-pressed="true"] { background: var(--koennen); }
+.tabs button[data-dim="duerfen"][aria-pressed="true"] { background: var(--duerfen); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.control { display: grid; gap: 6px; font: 400 0.85rem/1.3 var(--mono); color: var(--muted); }
+.control-row { display: flex; justify-content: space-between; gap: 12px; }
+input[type="range"] { width: 100%; accent-color: var(--fg); }
+.quote { border-left: 3px solid var(--beyond); padding: 4px 0 4px 16px; font-style: italic; max-width: 60ch; }
+.legend { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
+.legend li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
+.sw { width: 18px; height: 18px; border-radius: 50%; margin-top: 4px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.stat { font: 500 0.85rem/1.4 var(--mono); color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.stat b { color: var(--fg); font-weight: 500; font-variant-numeric: tabular-nums; }
+.note { font: 400 0.8rem/1.5 var(--mono); color: var(--muted); max-width: 70ch; }
+.map { overflow-x: auto; }
+.map svg { min-width: 620px; }
+.step { cursor: pointer; }
+.step:focus { outline: none; }
+.step:focus-visible rect, .step:hover rect.box { stroke-width: 3; }
+.inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 14px; }
+.field { display: grid; gap: 4px; font: 500 0.8rem/1.2 var(--mono); }
+.field label:not(.w):not(.k):not(.d) { color: var(--muted); }
+.field input { font: 500 1.1rem/1.2 var(--mono); padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); width: 100%; font-variant-numeric: tabular-nums; }
+.chart-tools { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+#chart { touch-action: none; }
+#triZpd .handle { cursor: grab; touch-action: none; }
+#chart .handle { cursor: ns-resize; }
+footer { border-top: 1px solid var(--line); padding-top: 18px; }
+@media (prefers-reduced-motion: no-preference) {
+  .anim { transition: r 300ms ease, opacity 300ms ease, width 300ms ease, x 300ms ease; }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand" aria-label="Innovation2Didactics"><span class="o">I</span>nnovation<span class="o">2D</span>idactics</div>
+    <span class="eyebrow">Growth OS · Bildung</span>
+    <h1>Growth OS in der Bildung</h1>
+    <p class="lede">Veränderung ist Lernen. Wer in einer Organisation etwas verändert, betritt Neuland und lernt dabei selbst, als Person, im Team und als ganze Organisation. Diese Seite zeigt das am Beispiel des wichtigsten Anwendungsfalls, der Schule. Growth OS beschreibt diesen Lernweg: vom Ziel über Wollen, Können und Dürfen bis zu Feedback und Scaffolding, die ihn begleiten.</p>
+    <div class="formula" aria-label="Veränderungsperformanz ist eine Funktion aus Wollen, Können und Dürfen">
+      <span>Veränderungsperformanz = f(</span><span class="t w">Wollen</span><span class="t k">Können</span><span class="t d">Dürfen</span><span>)</span>
+    </div>
+    <div class="figure map">
+      <svg id="flow" viewBox="0 0 900 470" role="group" aria-label="Ablauf von Growth OS in der Bildung"></svg>
+      <div class="caption">Klick auf einen Schritt springt zum Abschnitt. Nach dem Miro-Frame „Growth OS in der Bildung“.</div>
+    </div>
+  </header>
+
+
+
+
+
+
+  <section id="vision">
+    <div class="head">
+      <span class="eyebrow">Vision</span>
+      <h2>Organisationen, die sich verändern, indem sie lernen</h2>
+      <p>Jede Veränderung verlangt etwas, das man heute noch nicht kann. Deshalb ist Veränderung immer auch ein Lernprozess, für jede einzelne Person, für Teams und für die Organisation als Ganzes. Unsere Vision sind Organisationen, die diesen Lernprozess bewusst gestalten, statt ihn dem Zufall zu überlassen. Growth OS kommt vor allem in Schulen zum Einsatz, ist aber für jede Organisation gedacht, die sich weiterentwickeln will. Wer lernt, braucht ein Gerüst, und wer sicher steht, braucht weniger davon.</p>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <span class="tag k">Einzelne</span>
+        <h3>Selbstgesteuert lernen</h3>
+        <p>Vom angeleiteten Lernen hin zu Menschen, die Verantwortung für ihren eigenen Weg übernehmen. In der Schule sind das die Schüler:innen.</p>
+      </div>
+      <div class="card">
+        <span class="tag w">Begleitende</span>
+        <h3>Lernbegleitung ermöglichen</h3>
+        <p>Führungskräfte, Ausbildende und Lehrkräfte begleiten Lernprozesse, geben Feedback und bauen Unterstützung gezielt auf und wieder ab.</p>
+      </div>
+      <div class="card">
+        <span class="tag d">Team und Organisation</span>
+        <h3>Teamarbeit fördern</h3>
+        <p>Teams, in der Schule das Kollegium, lernen gemeinsam, und die Organisation schafft den Rahmen, in dem Neues erlaubt ist.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 Start -->
+  <section id="start">
+    <div class="head">
+      <span class="eyebrow">Schritt 1 · Start und Ziel definieren</span>
+      <h2>Bevor sich etwas verändert, muss klar sein, wohin</h2>
+      <p>Der Prozess beginnt nicht bei den Menschen, sondern beim Ziel. Wo steht die Schule heute, und welchen Wert soll die Veränderung stiften? Dafür nutzt Growth OS ein Modell mit gestuften Wertebenen. Parallel dazu geht es um den Umgang mit Veränderung selbst, also um die Phasen, die Menschen dabei durchlaufen.</p>
+    </div>
+    <div class="cols">
+      <div class="card" style="border-color: var(--start)">
+        <span class="tag" style="color: var(--start)">Ziel</span>
+        <h3>Wertebenen</h3>
+        <p>Legt fest, auf welcher Ebene die Veränderung Wert erzeugen soll. Daraus ergibt sich der Startpunkt für Wollen, Können und Dürfen.</p>
+      </div>
+      <div class="card" style="border-color: var(--start)">
+        <span class="tag" style="color: var(--start)">Haltung</span>
+        <h3>Phasen der Veränderung</h3>
+        <p>Beschreibt, wie Menschen Veränderung erleben und wo sie gerade stehen. Es speist den Umgang mit Veränderung und damit die Zieldefinition.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 Modell -->
+  <section id="modell">
+    <div class="head">
+      <span class="eyebrow">Schritt 2 · Können, Wollen, Dürfen</span>
+      <h2>Drei Disziplinen, ein Ergebnis</h2>
+      <p>Jede Ecke des Dreiecks ist das klassische Thema einer anderen Disziplin. Psychologie fragt, wie ein Mensch tickt. Bildung baut Kompetenzen und Wissen auf. Management setzt Ressourcen ein und steuert sie. Growth OS führt die drei zusammen. Wähl eine Ecke aus.</p>
+    </div>
+    <div class="split">
+      <div class="figure">
+        <svg id="tri" viewBox="0 0 440 360" role="group" aria-label="Dreieck aus Wollen, Können und Dürfen"></svg>
+        <div class="caption">Nach dem Miro-Frame „Growth OS BILDUNG 4 Rs+“</div>
+      </div>
+      <div class="panel" id="dimPanel" aria-live="polite"></div>
+    </div>
+  </section>
+  <!-- 5 Feedback -->
+  <section id="feedback">
+    <div class="head">
+      <span class="eyebrow">Schritt 3 · Feedback-Schleife</span>
+      <h2>Ist Feedback dasselbe wie Reflexion?</h2>
+      <p>Diese Frage steht auf dem Board. Die Antwort dort lautet: Sie überschneiden sich, haben aber einen anderen Schwerpunkt.</p>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <h3>Internale Reflexion</h3>
+        <p>Ein rein persönlicher, selbstgesteuerter Prozess. Eine Person denkt allein über sich nach.</p>
+      </div>
+      <div class="card">
+        <h3>Externe Reflexion</h3>
+        <p>Nachdenken über sich selbst gemeinsam mit einer anderen Person. Die andere Person bringt Informationen und Perspektiven ein und liefert damit ein Element von Feedback.</p>
+      </div>
+      <div class="card">
+        <h3>Feedback</h3>
+        <p>Zielt eher auf Korrektur und Leistungsverbesserung. In Coaching, Beratung oder Lernbegleitung findet es im selben dialogischen Rahmen statt wie externe Reflexion, aber der Fokus der Reflexion bleibt das tiefere Verstehen.</p>
+      </div>
+    </div>
+  </section>
+  <!-- 2 Scaffolding -->
+  <section id="scaffolding">
+    <div class="head">
+      <span class="eyebrow">Schritt 4 · Scaffolding</span>
+      <h2>Lernen findet eine Stufe über dem eigenen Können statt</h2>
+      <p>Scaffolding beruht auf der Zone der nächsten Entwicklung. Zwischen dem, was jemand allein schafft, und dem, was auch mit Hilfe nicht erreichbar ist, liegt ein Bereich, der mit Unterstützung erreichbar wird. Genau dort wirkt das Gerüst.</p>
+    </div>
+    <div class="split">
+      <div class="figure">
+        <svg id="zpd" viewBox="0 0 400 340" role="img" aria-label="Drei konzentrische Kreise: aktuelles Können, Zone der nächsten Entwicklung, nicht erreichbar"></svg>
+      </div>
+      <div class="panel">
+        <ul class="legend">
+          <li><span class="sw" style="background: var(--koennen)"></span><span><b>Aktuelles Können.</b> Was die lernende Person heute allein schafft.</span></li>
+          <li><span class="sw" style="background: var(--duerfen-soft); border: 2px solid var(--duerfen)"></span><span><b>Zone der nächsten Entwicklung.</b> Mit Anleitung, Feedback und Mentoring erreichbar.</span></li>
+          <li><span class="sw" style="border: 2px dashed var(--beyond)"></span><span><b>Außerhalb.</b> Auch mit Unterstützung im Moment nicht erreichbar.</span></li>
+        </ul>
+        <p class="quote">„Scaffolding ist in der Innovationsarbeit ein Muss, da man sich immer ein Level über der eigenen Kompetenz, dem eigenen Wissen, der Realität bewegt.“</p>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="figure">
+        <svg id="loop" viewBox="0 0 440 230" role="img" aria-label="Lernende und Lehrende verbunden durch Feedback und Scaffolding"></svg>
+        <div class="control">
+          <div class="control-row"><label for="tSlider">Zeitverlauf</label><span id="tOut">Beginn</span></div>
+          <input id="tSlider" type="range" min="0" max="100" value="15">
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Das Gerüst wird mit der Zeit abgebaut</h3>
+        <p>Lernende und Lehrende sind durch zwei Bewegungen verbunden. Feedback läuft von den Lernenden zurück, Scaffolding von den Lehrenden zu ihnen hin. Am Anfang trägt die Lehrkraft viel Unterstützung. Je weiter der Prozess läuft, desto mehr Verantwortung übernehmen die Lernenden selbst. Schieb den Regler, um das zu sehen.</p>
+        <div class="stat"><span>Verantwortung Lernende <b id="respOut"></b></span><span>Unterstützung Lehrende <b id="suppOut"></b></span></div>
+      </div>
+    </div>
+  </section>
+  <!-- 3 Growth OS -->
+  <section id="holistisch">
+    <div class="head">
+      <span class="eyebrow">Schritt 5 · Holistischer Ansatz</span>
+      <h2>Jede Dimension hat ihre eigene Entwicklungszone</h2>
+      <p>Der Kern von Growth OS ist die Verbindung beider Ideen. Wollen, Können und Dürfen haben jeweils ein aktuelles Niveau und eine Zone, die mit Unterstützung erreichbar ist. Scaffolding muss deshalb an allen drei Ecken ansetzen, nicht nur beim Können.</p>
+    </div>
+    <div class="figure">
+      <svg id="triZpd" viewBox="0 0 760 640" role="img" aria-label="Drei Entwicklungszonen an den Ecken des Dreiecks"></svg>
+      <div class="inputs">
+        <div class="field"><label for="inW" class="w">Wollen</label><input id="inW" type="number" min="0" max="100" step="1" inputmode="numeric"></div>
+        <div class="field"><label for="inK" class="k">Können</label><input id="inK" type="number" min="0" max="100" step="1" inputmode="numeric"></div>
+        <div class="field"><label for="inD" class="d">Dürfen</label><input id="inD" type="number" min="0" max="100" step="1" inputmode="numeric"></div>
+        <div class="field"><label for="inZ">Zone mit Unterstützung</label><input id="inZ" type="number" min="0" max="50" step="1" inputmode="numeric"></div>
+      </div>
+      <div class="caption">Zieh die Punkte im Dreieck oder gib Werte von 0 bis 100 ein, jeweils für den Zeitpunkt <b id="tpOut"></b>. Sie verändern auch die Kurven im nächsten Abschnitt, und umgekehrt. Die Zone gibt an, wie viel Scaffolding zusätzlich erreichbar macht.</div>
+    </div>
+  </section>
+  <!-- 4 Asynchron -->
+  <section id="asynchron">
+    <div class="head">
+      <span class="eyebrow">Schritt 6 · Asynchronität</span>
+      <h2>Die drei Dimensionen wachsen nicht im Gleichschritt</h2>
+      <p>Die Einflussfaktoren wirken zeitlich versetzt und hängen oft versteckt voneinander ab. Zwischen Input, also einer Intervention, und Output, also der Performance, besteht kein linearer Zusammenhang. Die schwächste Dimension bremst das Ganze, ähnlich wie beim komparativen Kostenvorteil.</p>
+    </div>
+    <div class="split">
+      <div class="figure">
+        <div class="chart-tools">
+          <div class="tabs" role="group" aria-label="Kurve zum Bearbeiten">
+            <button type="button" data-dim="wollen" aria-pressed="true">Wollen</button>
+            <button type="button" data-dim="koennen" aria-pressed="false">Können</button>
+            <button type="button" data-dim="duerfen" aria-pressed="false">Dürfen</button>
+          </div>
+          <button type="button" class="toggle" id="resetBtn">Zurücksetzen</button>
+        </div>
+        <svg id="chart" viewBox="0 0 520 300" role="img" aria-label="Verlauf von Wollen, Können, Dürfen und Performance über die Zeit"></svg>
+        <div class="control">
+          <div class="control-row"><label for="aSlider">Zeitpunkt</label><span id="aOut"></span></div>
+          <input id="aSlider" type="range" min="0" max="100" step="10" value="30">
+        </div>
+        <div class="caption">Wähl oben eine Kurve und zieh ihre Punkte nach oben oder unten. Deine Kurven bleiben in diesem Browser gespeichert.</div>
+      </div>
+      <div class="panel">
+        <div class="cols" style="grid-template-columns: 1fr;">
+          <div class="card">
+            <span class="tag w">Wollen</span>
+            <p>Steigt schnell an, sobald der Sinn der Veränderung klar ist, und bricht ein, wenn die anderen Dimensionen nicht nachziehen.</p>
+          </div>
+          <div class="card">
+            <span class="tag k">Können</span>
+            <p>Wächst langsam und stetig mit Wissen, Methoden und Erfahrung.</p>
+          </div>
+          <div class="card">
+            <span class="tag d">Dürfen</span>
+            <p>Ändert sich sprunghaft, etwa wenn Zeit, Räume oder gesetzliche Vorgaben angepasst werden.</p>
+          </div>
+        </div>
+        <div class="stat" aria-live="polite"><span>Performance <b id="perfOut"></b></span><span>Engpass <b id="neckOut"></b></span></div>
+        <button class="toggle" id="scafBtn" type="button" aria-pressed="false">Scaffolding zuschalten</button>
+      </div>
+    </div>
+  </section>
+  <section id="kreislauf">
+    <div class="card" style="gap: 12px; border-style: dashed;">
+      <span class="tag" style="color: var(--muted)">Und dann</span>
+      <h3>Zurück zu Können, Wollen, Dürfen</h3>
+      <p>Weil sich die Dimensionen asynchron entwickeln, ist der Prozess nie abgeschlossen. Der Blick auf die Asynchronität führt zurück zum Dreieck: Welche Ecke ist gerade der Engpass, und wo braucht es als Nächstes Feedback und Scaffolding? <a href="#modell" style="color: inherit">Zum Dreieck</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="note" style="display: grid; gap: 8px;">
+      <p>Grundlage: Miro-Board „Dynamic Scaffolding in Innovation Management“, Frame „Growth OS in der Bildung“ und die zugehörigen Frames.</p>
+      <p>Quellen der verwendeten Modelle: „9 Levels of Value“ (Wertebenen), „House of Change“ (Phasen der Veränderung), „ITFL“ (Feedback-Schleife). Die Namen sind Bezeichnungen der jeweiligen Urheber. Diese Seite beschreibt die Ideen mit eigenen Begriffen.</p>
+      <p>Das Feedback-Diagramm ist auf dem Board nur als Bild hinterlegt und hier nicht im Detail übernommen.</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (s, attrs, parent) => { const t = el("text", attrs, parent); t.textContent = s; return t; };
+
+  const DIMS = {
+    wollen: {
+      name: "Wollen", color: "var(--wollen)", soft: "var(--wollen-soft)",
+      field: "Klassisches Psychologie-Thema", sub: "Individueller Stimulus · wie tickt ein Mensch",
+      groups: [
+        ["Antrieb", ["Volition", "Emotion", "Motivation"]],
+        ["Ausdauer", ["Grit", "Leidenschaft", "Durchhaltevermögen"]],
+        ["Neugier", ["Curiosity", "divergent („kindlich“)", "epistemisch („Studium“)"]],
+        ["Scaffolding-Hebel", ["Sinn der Veränderung", "Transparenz / Offenheit (candor)", "Kommunikation"]]
+      ]
+    },
+    koennen: {
+      name: "Können", color: "var(--koennen)", soft: "var(--koennen-soft)",
+      field: "Klassisches Bildungs-Thema", sub: "Individuelles Wissen und Kompetenzen · Aufbau von Kompetenzen und Wissen",
+      groups: [
+        ["Kompetenzen", ["Fach", "Sozial", "Personal", "Methoden"]],
+        ["Wissen (Theorie)", ["explizit", "implizit"]],
+        ["Erfahrung (Praxis)", ["eigene Anwendung", "fremde, aber überlieferte Anwendung"]],
+        ["Scaffolding-Hebel", ["Kognitives Wissen", "Werkzeuge", "Methoden"]]
+      ]
+    },
+    duerfen: {
+      name: "Dürfen", color: "var(--duerfen)", soft: "var(--duerfen-soft)",
+      field: "Klassisches Management-Thema", sub: "Gesetzliche und strukturelle Rahmenbedingungen · Einsatz und Steuerung von Ressourcen",
+      groups: [
+        ["Ressourcen", ["Zeit", "Material", "Geld"]],
+        ["Auftrag", ["Aufgabe / Situation", "(Lern-)Ziel", "Erwartungen"]],
+        ["Rahmen", ["gesetzliche Vorgaben"]],
+        ["Scaffolding-Hebel", ["Zeit", "Raum / Ort", "Ausstattung"]]
+      ]
+    }
+  };
+  const ORDER = ["wollen", "koennen", "duerfen"];
+
+
+  /* 0 · Flow map */
+  (function () {
+    const f = document.getElementById("flow");
+    f.insertAdjacentHTML("afterbegin", '<defs><marker id="fa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--fg)"/></marker></defs>');
+    const zones = [
+      [10, 10, 190, 200, "var(--start-soft)", "var(--start)", "Start und Ziel", "start"],
+      [10, 230, 190, 230, "var(--bg)", "var(--line)", "Umgang mit Veränd.", "start"],
+      [220, 10, 420, 250, "var(--mint-soft)", "var(--koennen)", "Können · Wollen · Dürfen", "modell"],
+      [220, 270, 420, 190, "var(--mint-soft)", "var(--koennen)", "Asynchronität", "asynchron"],
+      [660, 10, 230, 120, "var(--blue-soft)", "var(--duerfen)", "Feedback-Schleife", "feedback"],
+      [660, 140, 230, 150, "var(--blue-soft)", "var(--duerfen)", "Scaffolding", "scaffolding"],
+      [660, 300, 230, 160, "var(--duerfen-soft)", "var(--duerfen)", "Holistischer Ansatz", "holistisch"]
+    ];
+    const go = id => document.getElementById(id).scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    zones.forEach(([x, y, w, h, fill, stroke, label, id]) => {
+      const g = el("g", { class: "step", tabindex: 0, role: "link", "aria-label": label }, f);
+      el("rect", { class: "box", x, y, width: w, height: h, rx: 8, fill, stroke, "stroke-width": 1.5 }, g);
+      txt(label, { x: x + 12, y: y + 22, "font-size": 14, "font-weight": 700 }, g);
+      g.addEventListener("click", () => go(id));
+      g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(id); } });
+    });
+    const pill = (x, y, w, s, fill, stroke) => {
+      el("rect", { x, y, width: w, height: 30, rx: 15, fill, stroke, "stroke-width": 1.5 }, f);
+      txt(s, { x: x + w / 2, y: y + 20, "text-anchor": "middle", "font-size": 13 }, f);
+    };
+    pill(40, 90, 130, "Wertebenen", "var(--surface)", "var(--start)");
+    pill(30, 330, 150, "Veränderungsphasen", "var(--surface)", "var(--start)");
+    // mini triangle
+    const tp = [[430, 60], [330, 200], [530, 200]];
+    el("polygon", { points: tp.map(p => p.join(",")).join(" "), fill: "none", stroke: "var(--muted)", "stroke-width": 3 }, f);
+    [["Wollen", "var(--wollen)"], ["Dürfen", "var(--duerfen)"], ["Können", "var(--koennen)"]].forEach(([n, c], i) => {
+      el("rect", { x: tp[i][0] - 44, y: tp[i][1] - 14, width: 88, height: 28, rx: 5, fill: "var(--surface)", stroke: c, "stroke-width": 2 }, f);
+      txt(n, { x: tp[i][0], y: tp[i][1] + 5, "text-anchor": "middle", "font-size": 13, "font-weight": 700 }, f);
+    });
+    ["im zeitlichen Verlauf dynamisch", "häufig versteckte Abhängigkeiten", "Input und Output nicht linear"].forEach((s, i) => {
+      txt(s, { x: 240, y: 320 + i * 26, class: "lbl" }, f);
+    });
+    // mini ZPD icons
+    [[775, 225, 1], [745, 400, 0.8], [775, 390, 1], [805, 400, 0.8]].forEach(([cx, cy, k]) => {
+      el("circle", { cx, cy, r: 34 * k, fill: "none", stroke: "var(--beyond)", "stroke-dasharray": "4 3" }, f);
+      el("circle", { cx, cy: cy + 8 * k, r: 22 * k, fill: "var(--surface)", stroke: "var(--duerfen)" }, f);
+      el("circle", { cx, cy: cy + 16 * k, r: 11 * k, fill: "var(--koennen)" }, f);
+    });
+    txt("Lernende ⇄ Lehrende", { x: 675, y: 70, class: "lbl" }, f);
+    txt("Feedback und Reflexion", { x: 675, y: 90, class: "lbl" }, f);
+    const arrow = d => el("path", { d, fill: "none", stroke: "var(--fg)", "stroke-width": 2.5, "marker-end": "url(#fa)" }, f);
+    arrow("M105,325 L105,128");          // Veränderungsphasen -> Wertebenen
+    arrow("M172,105 L325,130");          // Wertebenen -> KWD
+    arrow("M545,90 L655,70");            // KWD -> Feedback
+    arrow("M775,132 L775,186");          // Feedback -> Scaffolding
+    arrow("M775,262 L775,352");          // Scaffolding -> Holistisch
+    arrow("M655,380 L605,380");          // Holistisch -> Asynchron
+    arrow("M430,268 L430,222");          // Asynchron -> KWD
+  })();
+
+  /* 1 · Triangle */
+  const tri = document.getElementById("tri");
+  const pos = { wollen: [220, 50], duerfen: [80, 290], koennen: [360, 290] };
+  el("polygon", { points: ORDER.map(k => pos[k].join(",")).join(" "), fill: "none", stroke: "var(--line)", "stroke-width": 6, "stroke-linejoin": "round" }, tri);
+  const center = el("g", {}, tri);
+  el("rect", { x: 140, y: 180, width: 160, height: 46, rx: 6, fill: "var(--bg)", stroke: "var(--muted)", "stroke-dasharray": "4 4" }, center);
+  txt("Veränderungs-", { x: 220, y: 199, "text-anchor": "middle", "font-size": 13 }, center);
+  txt("performanz", { x: 220, y: 216, "text-anchor": "middle", "font-size": 13 }, center);
+  const nodes = {};
+  ORDER.forEach(k => {
+    const d = DIMS[k], [x, y] = pos[k];
+    const g = el("g", { class: "node", tabindex: 0, role: "button", "aria-label": d.name }, tri);
+    el("rect", { x: x - 62, y: y - 22, width: 124, height: 44, rx: 6, fill: d.soft, stroke: d.color, "stroke-width": 2 }, g);
+    txt(d.name, { x, y: y + 6, "text-anchor": "middle", "font-size": 18, "font-weight": 700 }, g);
+    txt(d.field.replace("Klassisches ", ""), { x, y: y + (k === "wollen" ? -32 : 40), "text-anchor": "middle", class: "lbl" }, g);
+    g.addEventListener("click", () => selectDim(k));
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectDim(k); } });
+    nodes[k] = g;
+  });
+  const panel = document.getElementById("dimPanel");
+  function selectDim(k) {
+    const d = DIMS[k];
+    ORDER.forEach(o => {
+      nodes[o].querySelector("rect").setAttribute("fill", o === k ? d.color : DIMS[o].soft);
+      nodes[o].querySelector("text").setAttribute("style", o === k ? "fill: var(--surface)" : "");
+      nodes[o].setAttribute("aria-pressed", o === k);
+    });
+    panel.innerHTML = "";
+    const tag = document.createElement("span"); tag.className = "tag"; tag.style.color = d.color; tag.textContent = d.field; panel.appendChild(tag);
+    const h = document.createElement("h3"); h.style.fontSize = "1.6rem"; h.style.fontWeight = "700"; h.textContent = d.name; panel.appendChild(h);
+    const p = document.createElement("p"); p.style.color = "var(--muted)"; p.textContent = d.sub; panel.appendChild(p);
+    d.groups.forEach(([title, items]) => {
+      const g = document.createElement("div"); g.className = "group";
+      const h4 = document.createElement("h4"); h4.textContent = title; g.appendChild(h4);
+      const ul = document.createElement("ul"); ul.className = "chips";
+      items.forEach(i => { const li = document.createElement("li"); li.textContent = i; if (title === "Scaffolding-Hebel") { li.style.borderColor = d.color; } ul.appendChild(li); });
+      g.appendChild(ul); panel.appendChild(g);
+    });
+  }
+  selectDim("wollen");
+
+  /* 2 · ZPD */
+  const zpd = document.getElementById("zpd");
+  el("circle", { cx: 200, cy: 175, r: 150, fill: "none", stroke: "var(--beyond)", "stroke-width": 2, "stroke-dasharray": "6 5" }, zpd);
+  el("circle", { cx: 200, cy: 205, r: 105, fill: "var(--duerfen-soft)", stroke: "var(--duerfen)", "stroke-width": 2 }, zpd);
+  el("circle", { cx: 200, cy: 240, r: 60, fill: "var(--koennen)" }, zpd);
+  txt("Außerhalb der Reichweite", { x: 200, y: 62, "text-anchor": "middle", "font-size": 14 }, zpd);
+  txt("auch mit Hilfe nicht erreichbar", { x: 200, y: 80, "text-anchor": "middle", class: "lbl" }, zpd);
+  txt("Zone der nächsten", { x: 200, y: 136, "text-anchor": "middle", "font-size": 14 }, zpd);
+  txt("Entwicklung", { x: 200, y: 154, "text-anchor": "middle", "font-size": 14 }, zpd);
+  txt("Aktuelles", { x: 200, y: 236, "text-anchor": "middle", "font-size": 14, style: "fill: var(--surface)" }, zpd);
+  txt("Können", { x: 200, y: 254, "text-anchor": "middle", "font-size": 14, style: "fill: var(--surface)" }, zpd);
+
+  /* 2b · Learner/teacher loop */
+  const loop = document.getElementById("loop");
+  const box = (x, label, sub, color) => {
+    el("rect", { x, y: 50, width: 130, height: 130, rx: 8, fill: "var(--surface)", stroke: color, "stroke-width": 2 }, loop);
+    txt(label, { x: x + 65, y: 72, "text-anchor": "middle", "font-size": 14, "font-weight": 700 }, loop);
+    txt(sub, { x: x + 65, y: 170, "text-anchor": "middle", class: "lbl" }, loop);
+    return el("circle", { cx: x + 65, cy: 118, r: 20, fill: color, opacity: 0.85, class: "anim" }, loop);
+  };
+  const respC = box(20, "Lernende", "Verantwortung", "var(--koennen)");
+  const suppC = box(290, "Lehrende", "Unterstützung", "var(--duerfen)");
+  el("defs", {}, loop).innerHTML = '<marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>';
+  loop.style.color = "var(--muted)";
+  el("path", { d: "M150,80 C200,20 240,20 290,80", fill: "none", stroke: "var(--muted)", "stroke-width": 2, "marker-start": "url(#ah)" }, loop);
+  el("path", { d: "M290,150 C240,210 200,210 150,150", fill: "none", stroke: "var(--muted)", "stroke-width": 2, "marker-end": "url(#ah)" }, loop);
+  txt("Feedback", { x: 220, y: 30, "text-anchor": "middle", "font-size": 13 }, loop);
+  txt("Scaffolding", { x: 220, y: 214, "text-anchor": "middle", "font-size": 13 }, loop);
+  const tS = document.getElementById("tSlider");
+  function updLoop() {
+    const t = tS.value / 100;
+    const resp = 0.15 + 0.8 * t, supp = 1 - 0.8 * t;
+    respC.setAttribute("r", (10 + 40 * resp).toFixed(1));
+    suppC.setAttribute("r", (10 + 40 * supp).toFixed(1));
+    document.getElementById("respOut").textContent = Math.round(resp * 100) + " %";
+    document.getElementById("suppOut").textContent = Math.round(supp * 100) + " %";
+    document.getElementById("tOut").textContent = t < 0.34 ? "Beginn" : t < 0.67 ? "Mitte" : "Später";
+  }
+  tS.addEventListener("input", updLoop); updLoop();
+
+  /* 3+4 · Asynchronous development, editable */
+  const N = 11, TS = Array.from({ length: N }, (_, i) => i / (N - 1));
+  const sig = (x, k, x0) => 1 / (1 + Math.exp(-k * (x - x0)));
+  const DEFAULTS = {
+    wollen: TS.map(t => Math.max(0.05, 0.25 + 0.6 * sig(t, 14, 0.18) - 0.32 * Math.exp(-Math.pow((t - 0.5) / 0.09, 2)))),
+    koennen: TS.map(t => 0.15 + 0.65 * t),
+    duerfen: TS.map(t => t < 0.42 ? 0.22 : t < 0.74 ? 0.52 : 0.82)
+  };
+  const r2 = v => Math.round(v * 100) / 100;
+  const KEY = "growth-os-v2-state";
+  let pts = {}, zone = 0.18, scaffold = false, active = "wollen";
+  function resetPts() { ORDER.forEach(k => { pts[k] = DEFAULTS[k].map(r2); }); zone = 0.18; }
+  resetPts();
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (saved && ORDER.every(k => Array.isArray(saved.pts?.[k]) && saved.pts[k].length === N)) { pts = saved.pts; zone = saved.zone ?? zone; }
+  } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ pts, zone })); } catch (e) {} };
+  const clamp = v => Math.max(0, Math.min(1, v));
+  // Catmull-Rom between control points
+  function raw(k, t) {
+    const a = pts[k], x = t * (N - 1), i = Math.min(N - 2, Math.floor(x)), u = x - i;
+    const p0 = a[Math.max(0, i - 1)], p1 = a[i], p2 = a[i + 1], p3 = a[Math.min(N - 1, i + 2)];
+    return clamp(0.5 * (2 * p1 + (-p0 + p2) * u + (2 * p0 - 5 * p1 + 4 * p2 - p3) * u * u + (-p0 + 3 * p1 - 3 * p2 + p3) * u * u * u));
+  }
+  const val = (k, t) => Math.min(1, raw(k, t) + (scaffold ? zone : 0));
+  const perf = t => Math.cbrt(val("wollen", t) * val("koennen", t) * val("duerfen", t));
+
+  // Triangle of ZPDs (radar: each vertex moves along its axis with the value)
+  const tz = document.getElementById("triZpd");
+  const zpos = { wollen: [380, 80], duerfen: [130, 513], koennen: [630, 513] };
+  const C = [380, 369], AX = 0.56; // centroid; share of the axis the value can use
+  const at = (k, v) => [C[0] + (zpos[k][0] - C[0]) * AX * v, C[1] + (zpos[k][1] - C[1]) * AX * v];
+  const polyPts = vals => ORDER.map(k => at(k, vals[k]).map(n => n.toFixed(1)).join(",")).join(" ");
+  [0.25, 0.5, 0.75, 1].forEach(g => el("polygon", { points: polyPts({ wollen: g, koennen: g, duerfen: g }), fill: "none", stroke: "var(--line)", "stroke-width": g === 1 ? 2 : 1 }, tz));
+  ORDER.forEach(k => el("line", { x1: C[0], y1: C[1], x2: zpos[k][0], y2: zpos[k][1], stroke: "var(--line)", "stroke-width": 1 }, tz));
+  [25, 50, 75, 100].forEach(g => txt(g, { x: at("wollen", g / 100)[0] - 8, y: at("wollen", g / 100)[1] + 4, "text-anchor": "end", class: "lbl" }, tz));
+  const reachTri = el("polygon", { fill: "none", stroke: "var(--fg)", "stroke-width": 1.5, "stroke-dasharray": "6 4", opacity: 0.6 }, tz);
+  const valTri = el("polygon", { fill: "var(--fg)", "fill-opacity": 0.08, stroke: "var(--fg)", "stroke-width": 2.5, "stroke-linejoin": "round" }, tz);
+  const valDots = {};
+  ORDER.forEach(k => { valDots[k] = el("circle", { r: 9, fill: DIMS[k].color, stroke: "var(--surface)", "stroke-width": 2.5, class: "handle", tabindex: 0, role: "slider", "aria-label": DIMS[k].name, "aria-valuemin": 0, "aria-valuemax": 100 }, tz); });
+  const zc = {};
+  ORDER.forEach(k => {
+    const d = DIMS[k], [x, y] = zpos[k];
+    el("circle", { cx: x, cy: y, r: 72, fill: "var(--surface)", stroke: "var(--beyond)", "stroke-width": 1.5, "stroke-dasharray": "5 4" }, tz);
+    const ring = el("circle", { cx: x, cy: y, r: 40, fill: d.soft, stroke: d.color, "stroke-width": 1.5, class: "anim" }, tz);
+    const core = el("circle", { cx: x, cy: y, r: 20, fill: d.color, class: "anim" }, tz);
+    el("rect", { x: x - 52, y: y + 78, width: 104, height: 30, rx: 5, fill: "var(--bg)", stroke: d.color, "stroke-width": 1.5 }, tz);
+    txt(d.name, { x, y: y + 98, "text-anchor": "middle", "font-size": 15, "font-weight": 700 }, tz);
+    const pct = txt("", { x, y: y + 5, "text-anchor": "middle", "font-size": 14, style: "fill: var(--surface)", "font-weight": 700 }, tz);
+    zc[k] = { ring, core, pct };
+  });
+  // keep profile and handles above circles and labels
+  tz.appendChild(reachTri); tz.appendChild(valTri); ORDER.forEach(k => tz.appendChild(valDots[k]));
+  const pg = el("g", {}, tz);
+  txt("Veränderungsperformanz", { x: 740, y: 40, "text-anchor": "end", "font-size": 14 }, pg);
+  const perfBig = txt("", { x: 740, y: 76, "text-anchor": "end", "font-size": 30, "font-weight": 700 }, pg);
+  const leg2 = el("g", {}, tz);
+  el("line", { x1: 20, x2: 44, y1: 34, y2: 34, stroke: "var(--fg)", "stroke-width": 2.5 }, leg2);
+  txt("aktuelles Profil", { x: 52, y: 38, class: "lbl" }, leg2);
+  el("line", { x1: 20, x2: 44, y1: 56, y2: 56, stroke: "var(--fg)", "stroke-width": 1.5, "stroke-dasharray": "6 4" }, leg2);
+  txt("mit Unterstützung erreichbar", { x: 52, y: 60, class: "lbl" }, leg2);
+
+  // Chart
+  const ch = document.getElementById("chart");
+  const L = 44, R = 504, T = 16, B = 256;
+  const X = t => L + t * (R - L), Y = v => B - v * (B - T);
+  [0, 0.25, 0.5, 0.75, 1].forEach(v => {
+    el("line", { x1: L, x2: R, y1: Y(v), y2: Y(v), stroke: "var(--line)", "stroke-width": 1 }, ch);
+    txt(Math.round(v * 100) + "", { x: L - 8, y: Y(v) + 4, "text-anchor": "end", class: "lbl" }, ch);
+  });
+  txt("Zeit →", { x: R, y: B + 24, "text-anchor": "end", class: "lbl" }, ch);
+  txt("Intervention", { x: L, y: B + 24, class: "lbl" }, ch);
+  const cursor = el("line", { y1: T, y2: B, stroke: "var(--muted)", "stroke-width": 1 }, ch);
+  const paths = {};
+  ORDER.forEach(k => { paths[k] = el("path", { fill: "none", stroke: DIMS[k].color, "stroke-width": 2.5 }, ch); });
+  paths.perf = el("path", { fill: "none", stroke: "var(--fg)", "stroke-width": 3, "stroke-dasharray": "7 4" }, ch);
+  const dot = el("circle", { r: 5, fill: "var(--fg)" }, ch);
+  const handleLayer = el("g", {}, ch);
+  const leg = el("g", {}, ch);
+  [["Wollen", "var(--wollen)"], ["Können", "var(--koennen)"], ["Dürfen", "var(--duerfen)"], ["Performance", "var(--fg)"]].forEach(([n, c], i) => {
+    const x = L + 6 + i * 104;
+    el("line", { x1: x, x2: x + 18, y1: 290, y2: 290, stroke: c, "stroke-width": 3, "stroke-dasharray": n === "Performance" ? "6 3" : "" }, leg);
+    txt(n, { x: x + 24, y: 294, class: "lbl" }, leg);
+  });
+  function pathFor(fn) {
+    let d = "";
+    for (let i = 0; i <= 200; i++) { const t = i / 200; d += (i ? "L" : "M") + X(t).toFixed(1) + "," + Y(fn(t)).toFixed(1); }
+    return d;
+  }
+  const handles = TS.map((t, i) => {
+    const h = el("circle", { class: "handle", cx: X(t), r: 7, "stroke-width": 2, stroke: "var(--surface)", tabindex: 0, role: "slider", "aria-valuemin": 0, "aria-valuemax": 100 }, handleLayer);
+    h.addEventListener("keydown", e => {
+      const step = e.key === "ArrowUp" ? 0.05 : e.key === "ArrowDown" ? -0.05 : 0;
+      if (!step) return;
+      e.preventDefault(); setPoint(active, i, pts[active][i] + step);
+    });
+    return h;
+  });
+  const aS = document.getElementById("aSlider");
+  const curIdx = () => Math.round(aS.value / 100 * (N - 1));
+  const ins = { wollen: document.getElementById("inW"), koennen: document.getElementById("inK"), duerfen: document.getElementById("inD") };
+  const inZ = document.getElementById("inZ");
+  function render() {
+    ORDER.forEach(k => paths[k].setAttribute("d", pathFor(t => val(k, t))));
+    paths.perf.setAttribute("d", pathFor(perf));
+    ORDER.forEach(k => paths[k].setAttribute("stroke-width", k === active ? 3.5 : 2));
+    handles.forEach((h, i) => {
+      const v = pts[active][i];
+      h.setAttribute("cy", Y(v)); h.setAttribute("fill", DIMS[active].color);
+      h.setAttribute("aria-label", DIMS[active].name + " bei Zeitpunkt " + i);
+      h.setAttribute("aria-valuenow", Math.round(v * 100));
+    });
+    const i = curIdx(), t = TS[i];
+    cursor.setAttribute("x1", X(t)); cursor.setAttribute("x2", X(t));
+    dot.setAttribute("cx", X(t)); dot.setAttribute("cy", Y(perf(t)));
+    let neck = ORDER[0];
+    const cur = {}, reach = {};
+    ORDER.forEach(k => { cur[k] = val(k, t); reach[k] = Math.min(1, raw(k, t) + zone); });
+    valTri.setAttribute("points", polyPts(cur));
+    reachTri.setAttribute("points", polyPts(reach));
+    ORDER.forEach(k => { const [x, y] = at(k, cur[k]); valDots[k].setAttribute("cx", x); valDots[k].setAttribute("cy", y); valDots[k].setAttribute("aria-valuenow", Math.round(cur[k] * 100)); });
+    ORDER.forEach(k => {
+      const v = val(k, t);
+      if (v < val(neck, t)) neck = k;
+      const base = 10 + 42 * v;
+      zc[k].core.setAttribute("r", base.toFixed(1));
+      zc[k].ring.setAttribute("r", Math.min(70, base + 42 * zone + 3).toFixed(1));
+      zc[k].pct.textContent = Math.round(v * 100);
+      if (document.activeElement !== ins[k]) ins[k].value = Math.round(pts[k][i] * 100);
+    });
+    if (document.activeElement !== inZ) inZ.value = Math.round(zone * 100);
+    const p = Math.round(perf(t) * 100);
+    perfBig.textContent = p;
+    document.getElementById("perfOut").textContent = p;
+    const nk = document.getElementById("neckOut");
+    nk.textContent = DIMS[neck].name; nk.style.color = DIMS[neck].color;
+    const lbl = (t < 0.34 ? "früh" : t < 0.67 ? "mittendrin" : "spät") + " (" + i + "/" + (N - 1) + ")";
+    document.getElementById("aOut").textContent = lbl;
+    document.getElementById("tpOut").textContent = lbl;
+  }
+  function setPoint(k, i, v) { pts[k][i] = r2(clamp(v)); save(); render(); }
+
+  // Drag the radar points along their axes
+  let rDrag = null;
+  const tzPt = e => { const q = tz.createSVGPoint(); q.x = e.clientX; q.y = e.clientY; return q.matrixTransform(tz.getScreenCTM().inverse()); };
+  const axisVal = (k, q) => {
+    const ax = (zpos[k][0] - C[0]) * AX, ay = (zpos[k][1] - C[1]) * AX;
+    return ((q.x - C[0]) * ax + (q.y - C[1]) * ay) / (ax * ax + ay * ay);
+  };
+  const setFromShown = (k, v) => setPoint(k, curIdx(), v - (scaffold ? zone : 0));
+  ORDER.forEach(k => {
+    const d = valDots[k];
+    d.addEventListener("pointerdown", e => { rDrag = k; tz.setPointerCapture(e.pointerId); e.preventDefault(); });
+    d.addEventListener("keydown", e => {
+      const st = e.key === "ArrowUp" || e.key === "ArrowRight" ? 0.05 : e.key === "ArrowDown" || e.key === "ArrowLeft" ? -0.05 : 0;
+      if (!st) return; e.preventDefault(); setFromShown(k, val(k, TS[curIdx()]) + st);
+    });
+  });
+  tz.addEventListener("pointermove", e => { if (rDrag) setFromShown(rDrag, axisVal(rDrag, tzPt(e))); });
+  const rEnd = () => { rDrag = null; };
+  tz.addEventListener("pointerup", rEnd); tz.addEventListener("pointercancel", rEnd);
+
+  // Drag
+  let drag = null;
+  const toSvg = e => { const pt = ch.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; return pt.matrixTransform(ch.getScreenCTM().inverse()); };
+  ch.addEventListener("pointerdown", e => {
+    const p = toSvg(e);
+    if (p.x < L - 15 || p.x > R + 15 || p.y < T - 15 || p.y > B + 15) return;
+    const i = Math.round(clamp((p.x - L) / (R - L)) * (N - 1));
+    drag = i; ch.setPointerCapture(e.pointerId);
+    setPoint(active, i, (B - p.y) / (B - T));
+  });
+  ch.addEventListener("pointermove", e => {
+    if (drag === null) return;
+    const p = toSvg(e);
+    const i = Math.round(clamp((p.x - L) / (R - L)) * (N - 1));
+    if (i !== drag) drag = i; // allows sweeping across points
+    setPoint(active, drag, (B - p.y) / (B - T));
+  });
+  const end = () => { drag = null; };
+  ch.addEventListener("pointerup", end); ch.addEventListener("pointercancel", end);
+
+  document.querySelectorAll("#asynchron .tabs button").forEach(b => b.addEventListener("click", () => {
+    active = b.dataset.dim;
+    document.querySelectorAll("#asynchron .tabs button").forEach(o => o.setAttribute("aria-pressed", o === b));
+    render();
+  }));
+  ORDER.forEach(k => ins[k].addEventListener("input", () => {
+    const n = parseFloat(ins[k].value); if (isNaN(n)) return;
+    setPoint(k, curIdx(), n / 100);
+  }));
+  ORDER.forEach(k => ins[k].addEventListener("blur", render));
+  inZ.addEventListener("input", () => { const n = parseFloat(inZ.value); if (isNaN(n)) return; zone = Math.max(0, Math.min(0.5, n / 100)); save(); render(); });
+  inZ.addEventListener("blur", render);
+  aS.addEventListener("input", render);
+  document.getElementById("resetBtn").addEventListener("click", () => { resetPts(); save(); render(); });
+  const btn = document.getElementById("scafBtn");
+  btn.addEventListener("click", () => {
+    scaffold = !scaffold;
+    btn.setAttribute("aria-pressed", scaffold);
+    btn.textContent = scaffold ? "Scaffolding abschalten" : "Scaffolding zuschalten";
+    render();
+  });
+  render();
+})();
+</script>
