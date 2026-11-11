@@ -236,7 +236,6 @@ body { padding: 0; }
 .slide .split { align-items: center; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 48px); }
 .slide .figure { display: flex; flex-direction: column; justify-content: center; }
 .slide .figure svg { max-height: calc(100dvh - 330px); }
-.slide#holistisch .figure svg { max-height: calc(100dvh - 400px); }
 .slide#holistisch .inputs { max-width: 280px; }
 .slide#asynchron .figure svg { max-height: calc(100dvh - 420px); }
 .slide#ablauf .figure svg { max-height: calc(100dvh - 260px); }
@@ -266,7 +265,24 @@ body { padding: 0; }
 .pbtn:disabled { opacity: .35; cursor: default; }
 .pbtn svg { width: 14px; height: 14px; }
 #pNum { min-width: 4.5em; text-align: center; font-variant-numeric: tabular-nums; }
+
+.slide.title { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-content: center; column-gap: 4vw; row-gap: clamp(12px, 2.4vh, 26px); }
+.slide.title > * { grid-column: 1; margin-inline: 0; }
+.slide.title > .tdiag { grid-column: 2; grid-row: 1 / span 6; align-self: center; width: 100%; max-height: 78dvh; }
+.vsplit { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) !important; }
+.vfig svg { width: 100%; max-height: calc(100dvh - 350px); display: block; margin: auto; }
+.cols.stack { grid-template-columns: 1fr; gap: 14px; }
+.card .cdiag { width: 100%; height: auto; max-height: 24dvh; margin-bottom: 6px; }
+.slide#holistisch .hsplit { grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr); }
+.slide#holistisch .figure { padding: 8px; }
+.cols.stack .card { padding: 12px 18px; gap: 4px; }
+.cols.stack .card p { font-size: 0.95rem; line-height: 1.5; }
+.slide#holistisch .figure svg { max-height: calc(100dvh - 250px); }
+.slide#holistisch .panel p { font-size: 1.05rem; }
 @media (max-width: 900px) {
+  .slide.title { grid-template-columns: 1fr; }
+  .slide#holistisch .hsplit, .vsplit { grid-template-columns: 1fr !important; }
+  .slide.title > .tdiag { grid-column: 1; grid-row: auto; max-height: 40dvh; }
   .slide .split { grid-template-columns: 1fr; align-items: start; }
   .slide .figure svg, .slide#holistisch .figure svg, .slide#asynchron .figure svg { max-height: none; }
   .slide.fill > :not(.head) { flex: none; }
@@ -290,16 +306,14 @@ body { padding: 0; }
 <span>Veränderungsperformanz = f(</span><span class="t w">Wollen</span><span class="t k">Können</span><span class="t d">Dürfen</span><span>)</span>
 </div>
 
-<p class="hint">Weiter mit der Pfeiltaste → oder den Knöpfen unten rechts.</p></section><section class="slide fill" data-title="Ablauf" id="ablauf"><div class="head"><span class="eyebrow">Überblick</span><h2>Der Weg durch Growth OS</h2></div><div class="figure map">
+<p class="hint">Weiter mit der Pfeiltaste → oder den Knöpfen unten rechts.</p><svg aria-label="Dreieck aus Wollen, Können und Dürfen mit je einer Entwicklungszone" class="tdiag" role="img" viewbox="40 0 680 640"><polygon fill="none" points="380,92 630,513 130,513" stroke="var(--line)" stroke-linejoin="round" stroke-width="6"></polygon><line stroke="var(--line)" stroke-width="1.5" x1="380" x2="380" y1="369" y2="92"></line><line stroke="var(--line)" stroke-width="1.5" x1="380" x2="630" y1="369" y2="513"></line><line stroke="var(--line)" stroke-width="1.5" x1="380" x2="130" y1="369" y2="513"></line><polygon fill="none" points="380.0,220.1 482.2,427.9 298.8,415.8" stroke="var(--muted)" stroke-dasharray="7 6" stroke-width="2.5"></polygon><polygon fill="var(--fg)" fill-opacity="0.07" points="380.0,248.0 457.0,413.4 324.0,401.3" stroke="var(--fg)" stroke-linejoin="round" stroke-width="3.5"></polygon><circle cx="380.0" cy="248.0" fill="var(--wollen)" r="9" stroke="var(--bg)" stroke-width="3"></circle><circle cx="380" cy="92" fill="none" r="74" stroke="var(--beyond)" stroke-dasharray="6 6" stroke-width="2"></circle><circle cx="380" cy="92" fill="var(--wollen-soft)" r="72" stroke="var(--wollen)" stroke-width="2.5"></circle><circle cx="380" cy="92" fill="var(--wollen)" r="45"></circle><rect fill="var(--surface)" height="34" rx="8" stroke="var(--wollen)" stroke-width="2.5" width="116" x="322" y="184"></rect><text font-size="18" font-weight="700" text-anchor="middle" x="380" y="207">Wollen</text><circle cx="457.0" cy="413.4" fill="var(--koennen)" r="9" stroke="var(--bg)" stroke-width="3"></circle><circle cx="630" cy="513" fill="none" r="74" stroke="var(--beyond)" stroke-dasharray="6 6" stroke-width="2"></circle><circle cx="630" cy="513" fill="var(--koennen-soft)" r="62" stroke="var(--koennen)" stroke-width="2.5"></circle><circle cx="630" cy="513" fill="var(--koennen)" r="35"></circle><rect fill="var(--surface)" height="34" rx="8" stroke="var(--koennen)" stroke-width="2.5" width="116" x="572" y="605"></rect><text font-size="18" font-weight="700" text-anchor="middle" x="630" y="628">Können</text><circle cx="324.0" cy="401.3" fill="var(--duerfen)" r="9" stroke="var(--bg)" stroke-width="3"></circle><circle cx="130" cy="513" fill="none" r="74" stroke="var(--beyond)" stroke-dasharray="6 6" stroke-width="2"></circle><circle cx="130" cy="513" fill="var(--duerfen-soft)" r="55" stroke="var(--duerfen)" stroke-width="2.5"></circle><circle cx="130" cy="513" fill="var(--duerfen)" r="29"></circle><rect fill="var(--surface)" height="34" rx="8" stroke="var(--duerfen)" stroke-width="2.5" width="116" x="72" y="605"></rect><text font-size="18" font-weight="700" text-anchor="middle" x="130" y="628">Dürfen</text></svg></section><section class="slide fill" data-title="Ablauf" id="ablauf"><div class="head"><span class="eyebrow">Überblick</span><h2>Der Weg durch Growth OS</h2></div><div class="figure map">
 <svg aria-label="Ablauf von Growth OS in der Bildung" id="flow" role="group" viewbox="0 0 900 470"></svg>
 <div class="caption">Klick auf einen Schritt springt zur passenden Folie. Nach dem Miro-Frame „Growth OS in der Bildung“.</div>
-</div></section><section class="slide center" data-title="Vision" id="vision">
-<div class="head">
+</div></section><section class="slide center" data-title="Vision" id="vision"><div class="head">
 <span class="eyebrow">Vision</span>
 <h2>Organisationen, die sich verändern, indem sie lernen</h2>
 <p>Jede Veränderung verlangt etwas, das man heute noch nicht kann. Deshalb ist Veränderung immer auch ein Lernprozess, für jede einzelne Person, für Teams und für die Organisation als Ganzes. Unsere Vision sind Organisationen, die diesen Lernprozess bewusst gestalten, statt ihn dem Zufall zu überlassen. Growth OS kommt vor allem in Schulen zum Einsatz, ist aber für jede Organisation gedacht, die sich weiterentwickeln will. Wer lernt, braucht ein Gerüst, und wer sicher steht, braucht weniger davon.</p>
-</div>
-<div class="cols">
+</div><div class="split vsplit"><div class="vfig"><svg aria-label="Drei Ebenen des Lernens: Einzelne in der Lernbegleitung im Team und in der Organisation" class="vdiag" role="img" viewbox="0 0 440 400"><circle cx="220" cy="202" fill="var(--duerfen-soft)" r="192" stroke="var(--duerfen)" stroke-width="2.5"></circle><circle cx="220" cy="246" fill="var(--wollen-soft)" r="138" stroke="var(--wollen)" stroke-width="2.5"></circle><circle cx="220" cy="292" fill="var(--koennen)" r="84"></circle><text font-size="18" font-weight="700" style="fill:var(--duerfen)" text-anchor="middle" x="220" y="62">Team und Organisation</text><text font-size="14" style="fill:var(--muted)" text-anchor="middle" x="220" y="84">schaffen den Rahmen</text><text font-size="18" font-weight="700" style="fill:var(--wollen)" text-anchor="middle" x="220" y="148">Begleitende</text><text font-size="14" style="fill:var(--muted)" text-anchor="middle" x="220" y="170">geben Feedback und Gerüst</text><text font-size="18" font-weight="700" style="fill:var(--surface)" text-anchor="middle" x="220" y="288">Einzelne</text><text font-size="14" style="fill:var(--surface)" text-anchor="middle" x="220" y="310">lernen selbstgesteuert</text></svg></div><div class="cols stack">
 <div class="card">
 <span class="tag k">Einzelne</span>
 <h3>Selbstgesteuert lernen</h3>
@@ -315,20 +329,19 @@ body { padding: 0; }
 <h3>Teamarbeit fördern</h3>
 <p>Teams, in der Schule das Kollegium, lernen gemeinsam, und die Organisation schafft den Rahmen, in dem Neues erlaubt ist.</p>
 </div>
-</div>
-</section><section class="slide center" data-title="Start und Ziel" id="start">
+</div></div></section><section class="slide center" data-title="Start und Ziel" id="start">
 <div class="head">
 <span class="eyebrow">Schritt 1 · Start und Ziel definieren</span>
 <h2>Bevor sich etwas verändert, muss klar sein, wohin</h2>
 <p>Der Prozess beginnt nicht bei den Menschen, sondern beim Ziel. Wo steht die Schule heute, und welchen Wert soll die Veränderung stiften? Dafür nutzt Growth OS ein Modell mit gestuften Wertebenen. Parallel dazu geht es um den Umgang mit Veränderung selbst, also um die Phasen, die Menschen dabei durchlaufen.</p>
 </div>
 <div class="cols">
-<div class="card" style="border-color: var(--start)">
+<div class="card" style="border-color: var(--start)"><svg aria-label="Gestufte Wertebenen: vom heutigen Stand zur Zielebene" class="cdiag" role="img" viewbox="0 0 400 190"><defs><marker id="ahw" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path></marker></defs><rect fill="var(--start-soft)" height="28" rx="4" stroke="var(--start)" stroke-width="2" width="62" x="30" y="148"></rect><rect fill="var(--start-soft)" height="56" rx="4" stroke="var(--start)" stroke-width="2" width="62" x="96" y="120"></rect><rect fill="var(--start-soft)" height="84" rx="4" stroke="var(--start)" stroke-width="2" width="62" x="162" y="92"></rect><rect fill="var(--start)" height="112" rx="4" stroke="var(--start)" stroke-width="2" width="62" x="228" y="64"></rect><rect fill="var(--start-soft)" height="140" rx="4" stroke="var(--start)" stroke-width="2" width="62" x="294" y="36"></rect><circle cx="61" cy="132" fill="var(--fg)" r="9"></circle><text font-size="14" font-weight="700" text-anchor="middle" x="61" y="116">heute</text><path d="M75,126 C140,70 200,50 250,52" fill="none" marker-end="url(#ahw)" stroke="var(--fg)" stroke-dasharray="6 5" stroke-width="2.5" style="color:var(--fg)"></path><path d="M259,64 L259,22" stroke="var(--fg)" stroke-width="2.5"></path><path d="M259,22 L284,29 L259,36 z" fill="var(--brand)"></path><text font-size="14" font-weight="700" x="292" y="36">Ziel</text></svg>
 <span class="tag" style="color: var(--start)">Ziel</span>
 <h3>Wertebenen</h3>
 <p>Legt fest, auf welcher Ebene die Veränderung Wert erzeugen soll. Daraus ergibt sich der Startpunkt für Wollen, Können und Dürfen.</p>
 </div>
-<div class="card" style="border-color: var(--start)">
+<div class="card" style="border-color: var(--start)"><svg aria-label="Erleben einer Veränderung über die Zeit: erst ein Tal, dann Aufstieg" class="cdiag" role="img" viewbox="0 0 400 190"><defs><marker id="ahp" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path></marker></defs><g stroke="currentColor" stroke-width="1.5" style="color:var(--muted)"><path d="M30,176 L385,176" marker-end="url(#ahp)"></path><path d="M30,176 L30,12" marker-end="url(#ahp)"></path></g><text font-size="13" style="fill:var(--muted)" text-anchor="end" x="380" y="168">Zeit</text><text font-size="13" style="fill:var(--muted)" x="40" y="16">Erleben</text><path d="M40,70 C90,68 110,150 170,152 C230,154 270,90 370,40" fill="none" stroke="var(--start)" stroke-linecap="round" stroke-width="4"></path><circle cx="40" cy="70" fill="var(--surface)" r="6" stroke="var(--start)" stroke-width="3"></circle><circle cx="105" cy="112" fill="var(--surface)" r="6" stroke="var(--start)" stroke-width="3"></circle><circle cx="170" cy="152" fill="var(--surface)" r="6" stroke="var(--start)" stroke-width="3"></circle><circle cx="255" cy="108" fill="var(--surface)" r="6" stroke="var(--start)" stroke-width="3"></circle><circle cx="370" cy="40" fill="var(--surface)" r="6" stroke="var(--start)" stroke-width="3"></circle><circle cx="170" cy="152" fill="none" r="11" stroke="var(--fg)" stroke-width="2.5"></circle><path d="M176,142 L210,46" stroke="var(--fg)" stroke-width="1.5"></path><text font-size="14" font-weight="700" text-anchor="middle" x="212" y="40">Wo stehen die Menschen gerade?</text></svg>
 <span class="tag" style="color: var(--start)">Haltung</span>
 <h3>Phasen der Veränderung</h3>
 <p>Beschreibt, wie Menschen Veränderung erleben und wo sie gerade stehen. Es speist den Umgang mit Veränderung und damit die Zieldefinition.</p>
@@ -352,15 +365,15 @@ body { padding: 0; }
 <h2>Ist Feedback dasselbe wie Reflexion?</h2>
 <p>Diese Frage steht auf dem Board. Die Antwort dort lautet: Sie überschneiden sich, haben aber einen anderen Schwerpunkt.</p>
 </div><div class="cols">
-<div class="card">
+<div class="card"><svg aria-label="Eine Person denkt allein über sich nach" class="cdiag" role="img" viewbox="0 0 260 130"><defs><marker id="ahi" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path></marker></defs><circle cx="130" cy="50" fill="var(--koennen-soft)" r="13" stroke="var(--koennen)" stroke-width="3"></circle><path d="M106,100 a24,26 0 0 1 48,0 z" fill="var(--koennen-soft)" stroke="var(--koennen)" stroke-linejoin="round" stroke-width="3"></path><path d="M96,36 A40,40 0 1 1 106,82" fill="none" marker-end="url(#ahi)" stroke="var(--koennen)" stroke-width="3" style="color:var(--koennen)"></path></svg>
 <h3>Internale Reflexion</h3>
 <p>Ein rein persönlicher, selbstgesteuerter Prozess. Eine Person denkt allein über sich nach.</p>
 </div>
-<div class="card">
+<div class="card"><svg aria-label="Zwei Personen reflektieren gemeinsam im Dialog" class="cdiag" role="img" viewbox="0 0 260 130"><defs><marker id="ahe" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path></marker></defs><circle cx="60" cy="46" fill="var(--koennen-soft)" r="13" stroke="var(--koennen)" stroke-width="3"></circle><path d="M36,96 a24,26 0 0 1 48,0 z" fill="var(--koennen-soft)" stroke="var(--koennen)" stroke-linejoin="round" stroke-width="3"></path><circle cx="200" cy="46" fill="var(--duerfen-soft)" r="13" stroke="var(--duerfen)" stroke-width="3"></circle><path d="M176,96 a24,26 0 0 1 48,0 z" fill="var(--duerfen-soft)" stroke="var(--duerfen)" stroke-linejoin="round" stroke-width="3"></path><g fill="none" stroke="currentColor" stroke-width="3" style="color:var(--muted)"><path d="M94,48 Q130,28 166,48" marker-end="url(#ahe)"></path><path d="M166,72 Q130,92 94,72" marker-end="url(#ahe)"></path></g><text font-size="14" style="fill:var(--muted)" text-anchor="middle" x="130" y="122">gemeinsam nachdenken</text></svg>
 <h3>Externe Reflexion</h3>
 <p>Nachdenken über sich selbst gemeinsam mit einer anderen Person. Die andere Person bringt Informationen und Perspektiven ein und liefert damit ein Element von Feedback.</p>
 </div>
-<div class="card">
+<div class="card"><svg aria-label="Eine Feedbackquelle gibt einer lernenden Person eine Rückmeldung zum Ziel" class="cdiag" role="img" viewbox="0 0 260 130"><defs><marker id="ahf" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path></marker></defs><circle cx="48" cy="46" fill="var(--duerfen-soft)" r="13" stroke="var(--duerfen)" stroke-width="3"></circle><path d="M24,96 a24,26 0 0 1 48,0 z" fill="var(--duerfen-soft)" stroke="var(--duerfen)" stroke-linejoin="round" stroke-width="3"></path><circle cx="170" cy="46" fill="var(--koennen-soft)" r="13" stroke="var(--koennen)" stroke-width="3"></circle><path d="M146,96 a24,26 0 0 1 48,0 z" fill="var(--koennen-soft)" stroke="var(--koennen)" stroke-linejoin="round" stroke-width="3"></path><path d="M80,60 L132,60" marker-end="url(#ahf)" stroke="var(--wollen)" stroke-width="3.5" style="color:var(--wollen)"></path><circle cx="232" cy="52" fill="none" r="20" stroke="var(--wollen)" stroke-width="2.5"></circle><circle cx="232" cy="52" fill="none" r="11" stroke="var(--wollen)" stroke-width="2.5"></circle><circle cx="232" cy="52" fill="var(--wollen)" r="3.5"></circle><text font-size="14" style="fill:var(--muted)" text-anchor="middle" x="106" y="122">Rückmeldung zum Ziel</text></svg>
 <h3>Feedback</h3>
 <p>Zielt eher auf Korrektur und Leistungsverbesserung. In Coaching, Beratung oder Lernbegleitung findet es im selben dialogischen Rahmen statt wie externe Reflexion, aber der Fokus der Reflexion bleibt das tiefere Verstehen.</p>
 </div>
@@ -396,20 +409,17 @@ body { padding: 0; }
 <p>Lernende und Lehrende sind durch zwei Bewegungen verbunden. Feedback läuft von den Lernenden zurück, Scaffolding von den Lehrenden zu ihnen hin. Am Anfang trägt die Lehrkraft viel Unterstützung. Je weiter der Prozess läuft, desto mehr Verantwortung übernehmen die Lernenden selbst. Schieb den Regler, um das zu sehen.</p>
 <div class="stat"><span>Verantwortung Lernende <b id="respOut"></b></span><span>Unterstützung Lehrende <b id="suppOut"></b></span></div>
 </div>
-</div></section><section class="slide fill" data-title="Holistischer Ansatz" id="holistisch">
-<div class="head">
+</div></section><section class="slide fill" data-title="Holistischer Ansatz" id="holistisch"><div class="head">
 <span class="eyebrow">Schritt 5 · Holistischer Ansatz</span>
 <h2>Jede Dimension hat ihre eigene Entwicklungszone</h2>
-<p>Der Kern von Growth OS ist die Verbindung beider Ideen. Wollen, Können und Dürfen haben jeweils ein aktuelles Niveau und eine Zone, die mit Unterstützung erreichbar ist. Scaffolding muss deshalb an allen drei Ecken ansetzen, nicht nur beim Können.</p>
-</div>
-<div class="figure">
+
+</div><div class="split hsplit"><div class="figure">
 <svg aria-label="Drei Entwicklungszonen an den Ecken des Dreiecks" id="triZpd" role="img" viewbox="0 0 760 640"></svg>
-<div class="inputs">
+
+
+</div><div class="panel"><p>Der Kern von Growth OS ist die Verbindung beider Ideen. Wollen, Können und Dürfen haben jeweils ein aktuelles Niveau und eine Zone, die mit Unterstützung erreichbar ist. Scaffolding muss deshalb an allen drei Ecken ansetzen, nicht nur beim Können.</p><div class="inputs">
 <div class="field"><label for="inZ">Zone mit Unterstützung</label><input id="inZ" inputmode="numeric" max="50" min="0" step="1" type="number"/></div>
-</div>
-<div class="caption">Zieh die Punkte im Dreieck oder klick in einen Kreis und tipp einen Wert von 0 bis 100 ein, jeweils für den Zeitpunkt <b id="tpOut"></b>. Sie verändern auch die Kurven im nächsten Abschnitt, und umgekehrt. Die Zone gibt an, wie viel Scaffolding zusätzlich erreichbar macht.</div>
-</div>
-</section><section class="slide fill" data-title="Asynchronität" id="asynchron">
+</div><div class="caption">Zieh die Punkte im Dreieck oder klick in einen Kreis und tipp einen Wert von 0 bis 100 ein, jeweils für den Zeitpunkt <b id="tpOut"></b>. Sie verändern auch die Kurven im nächsten Abschnitt, und umgekehrt. Die Zone gibt an, wie viel Scaffolding zusätzlich erreichbar macht.</div></div></div></section><section class="slide fill" data-title="Asynchronität" id="asynchron">
 <div class="head">
 <span class="eyebrow">Schritt 6 · Asynchronität</span>
 <h2>Die drei Dimensionen wachsen nicht im Gleichschritt</h2>
