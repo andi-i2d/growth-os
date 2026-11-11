@@ -116,6 +116,10 @@ input[type="range"] { width: 100%; accent-color: var(--fg); }
 .chart-tools { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
 #chart { touch-action: none; }
 #triZpd .handle { cursor: grab; touch-action: none; }
+#triZpd .cin { width: 60px; height: 32px; border: 2px solid var(--surface); border-radius: 16px; color: #fff; font: 700 16px/1 Lato, sans-serif; text-align: center; padding: 0; cursor: text; -moz-appearance: textfield; appearance: textfield; }
+#triZpd .cin::-webkit-outer-spin-button, #triZpd .cin::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+#triZpd .cin:hover { box-shadow: 0 0 0 2px var(--fg); }
+#triZpd .cin:focus { outline: 3px solid var(--brand); outline-offset: 1px; }
 #chart .handle { cursor: ns-resize; }
 footer { border-top: 1px solid var(--line); padding-top: 18px; }
 @media (prefers-reduced-motion: no-preference) {
@@ -344,12 +348,9 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
     <div class="figure">
       <svg id="triZpd" viewBox="0 0 760 640" role="img" aria-label="Drei Entwicklungszonen an den Ecken des Dreiecks"></svg>
       <div class="inputs">
-        <div class="field"><label for="inW" class="w">Wollen</label><input id="inW" type="number" min="0" max="100" step="1" inputmode="numeric"></div>
-        <div class="field"><label for="inK" class="k">Können</label><input id="inK" type="number" min="0" max="100" step="1" inputmode="numeric"></div>
-        <div class="field"><label for="inD" class="d">Dürfen</label><input id="inD" type="number" min="0" max="100" step="1" inputmode="numeric"></div>
         <div class="field"><label for="inZ">Zone mit Unterstützung</label><input id="inZ" type="number" min="0" max="50" step="1" inputmode="numeric"></div>
       </div>
-      <div class="caption">Zieh die Punkte im Dreieck oder gib Werte von 0 bis 100 ein, jeweils für den Zeitpunkt <b id="tpOut"></b>. Sie verändern auch die Kurven im nächsten Abschnitt, und umgekehrt. Die Zone gibt an, wie viel Scaffolding zusätzlich erreichbar macht.</div>
+      <div class="caption">Zieh die Punkte im Dreieck oder klick in einen Kreis und tipp einen Wert von 0 bis 100 ein, jeweils für den Zeitpunkt <b id="tpOut"></b>. Sie verändern auch die Kurven im nächsten Abschnitt, und umgekehrt. Die Zone gibt an, wie viel Scaffolding zusätzlich erreichbar macht.</div>
     </div>
   </section>
   <!-- 4 Asynchron -->
@@ -644,7 +645,12 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
     const core = el("circle", { cx: x, cy: y, r: 20, fill: d.color, class: "anim" }, tz);
     el("rect", { x: x - 52, y: y + 78, width: 104, height: 30, rx: 5, fill: "var(--bg)", stroke: d.color, "stroke-width": 1.5 }, tz);
     txt(d.name, { x, y: y + 98, "text-anchor": "middle", "font-size": 15, "font-weight": 700 }, tz);
-    const pct = txt("", { x, y: y + 5, "text-anchor": "middle", "font-size": 14, style: "fill: var(--surface)", "font-weight": 700 }, tz);
+    const fo = el("foreignObject", { x: x - 30, y: y - 16, width: 60, height: 32 }, tz);
+    const pct = document.createElement("input");
+    Object.assign(pct, { type: "number", min: 0, max: 100, step: 1, inputMode: "numeric", className: "cin" });
+    pct.setAttribute("aria-label", d.name + " (0 bis 100)");
+    pct.style.background = d.color;
+    fo.appendChild(pct);
     zc[k] = { ring, core, pct };
   });
   // keep profile and handles above circles and labels
@@ -696,7 +702,6 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
   });
   const aS = document.getElementById("aSlider");
   const curIdx = () => Math.round(aS.value / 100 * (N - 1));
-  const ins = { wollen: document.getElementById("inW"), koennen: document.getElementById("inK"), duerfen: document.getElementById("inD") };
   const inZ = document.getElementById("inZ");
   function render() {
     ORDER.forEach(k => paths[k].setAttribute("d", pathFor(t => val(k, t))));
@@ -723,8 +728,7 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
       const base = 10 + 42 * v;
       zc[k].core.setAttribute("r", base.toFixed(1));
       zc[k].ring.setAttribute("r", Math.min(70, base + 42 * zone + 3).toFixed(1));
-      zc[k].pct.textContent = Math.round(v * 100);
-      if (document.activeElement !== ins[k]) ins[k].value = Math.round(pts[k][i] * 100);
+      if (document.activeElement !== zc[k].pct) zc[k].pct.value = Math.round(v * 100);
     });
     if (document.activeElement !== inZ) inZ.value = Math.round(zone * 100);
     const p = Math.round(perf(t) * 100);
@@ -783,11 +787,16 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
     document.querySelectorAll("#asynchron .tabs button").forEach(o => o.setAttribute("aria-pressed", o === b));
     render();
   }));
-  ORDER.forEach(k => ins[k].addEventListener("input", () => {
-    const n = parseFloat(ins[k].value); if (isNaN(n)) return;
-    setPoint(k, curIdx(), n / 100);
-  }));
-  ORDER.forEach(k => ins[k].addEventListener("blur", render));
+  ORDER.forEach(k => {
+    const inp = zc[k].pct;
+    inp.addEventListener("input", () => {
+      const n = parseFloat(inp.value); if (isNaN(n)) return;
+      setFromShown(k, Math.max(0, Math.min(100, n)) / 100);
+    });
+    inp.addEventListener("focus", () => inp.select());
+    inp.addEventListener("keydown", e => { if (e.key === "Enter") inp.blur(); });
+    inp.addEventListener("blur", render);
+  });
   inZ.addEventListener("input", () => { const n = parseFloat(inZ.value); if (isNaN(n)) return; zone = Math.max(0, Math.min(0.5, n / 100)); save(); render(); });
   inZ.addEventListener("blur", render);
   aS.addEventListener("input", render);
