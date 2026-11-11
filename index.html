@@ -192,6 +192,29 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
 .fb #fb-t8:checked~.fbrow label[for=fb-t8]{background:var(--fg);color:var(--surface);border-color:var(--fg)}
 
 @media (max-width:900px){.fb .fbrow{flex-direction:column}}
+
+/* Vollbild */
+.fsbar { display: flex; justify-content: flex-end; margin: 0 0 6px; }
+.fsbtn { display: inline-flex; align-items: center; gap: 6px; font: 700 0.85rem/1 var(--body); color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.fsbtn:hover { color: var(--fg); border-color: var(--fg); }
+.fsbtn svg { width: 14px !important; height: 14px; min-width: 0 !important; flex: none; }
+.fsclose { display: none; }
+.is-fs { position: fixed; inset: 0; z-index: 1000; margin: 0 !important; max-width: none !important; width: 100vw; height: 100vh; height: 100dvh; overflow: auto; background: var(--bg); padding: 64px max(24px, 3vw) 24px; box-sizing: border-box; border-radius: 0; border: 0; }
+.is-fs:fullscreen { background: var(--bg); }
+.is-fs::backdrop { background: var(--bg); }
+.is-fs > .fsclose { display: inline-flex; position: fixed; top: 14px; right: 18px; z-index: 1001; width: auto; left: auto; }
+.is-fs.split { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.is-fs .inputs { max-width: 280px; }
+.is-fs.split { align-items: center; align-content: center; }
+.is-fs.figure, .is-fs .figure { display: flex; flex-direction: column; justify-content: center; }
+.is-fs svg { max-height: calc(100dvh - 150px); }
+.figure.is-fs:has(#triZpd) svg { max-height: calc(100dvh - 210px); }
+.is-fs .fbd svg { max-height: none; }
+.fb.is-fs { display: block; }
+.fb.is-fs > .fbrow, .fb.is-fs > .src { zoom: var(--fsz, 1); width: 1200px; margin-left: auto; margin-right: auto; }
+.fb.is-fs .fbscroll { overflow: visible; }
+body.fs-open { overflow: hidden; }
+@media (max-width: 900px) { .is-fs.split { grid-template-columns: 1fr; align-content: start; } }
 </style>
 
 <div class="wrap">
@@ -809,5 +832,71 @@ footer { border-top: 1px solid var(--line); padding-top: 18px; }
     render();
   });
   render();
+})();
+
+/* Vollbild für jedes interaktive Element */
+(function () {
+  const ICON_OPEN = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4"/></svg>';
+  const ICON_CLOSE = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>';
+  const targets = [
+    ".figure.map", "#modell .split", "#feedback .fb",
+    "#scaffolding .split", "#holistisch .figure", "#asynchron .split"
+  ];
+  const nativeFs = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen);
+  const fsEl = () => document.fullscreenElement || document.webkitFullscreenElement;
+  let active = null;
+
+  function fitFb(box) {
+    if (!box.classList.contains("fb")) return;
+    box.style.setProperty("--fsz", 1);
+    const kids = [...box.children].filter(c => c.matches(".fbrow, .src"));
+    const h = kids.reduce((a, c) => a + c.offsetHeight, 0) + 24;
+    const z = Math.max(0.4, Math.min(2, (window.innerWidth - 60) / 1200, (window.innerHeight - 90) / h));
+    box.style.setProperty("--fsz", z.toFixed(3));
+  }
+  function setOn(box) {
+    active = box; box.classList.add("is-fs"); document.body.classList.add("fs-open");
+    fitFb(box);
+    box.querySelector(":scope > .fsclose").focus({ preventScroll: true });
+  }
+  function setOff() {
+    if (!active) return;
+    const box = active; active = null;
+    box.classList.remove("is-fs"); document.body.classList.remove("fs-open");
+    box.style.removeProperty("--fsz");
+    box._fsOpen.focus({ preventScroll: true });
+    box.scrollIntoView({ block: "center" });
+  }
+  function open(box) {
+    if (active) close();
+    setOn(box);
+    if (nativeFs) {
+      const req = box.requestFullscreen || box.webkitRequestFullscreen;
+      try { const r = req.call(box); if (r && r.catch) r.catch(() => {}); } catch (e) {}
+    }
+  }
+  function close() {
+    if (fsEl()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); }
+    setOff();
+  }
+  const onFsChange = () => { if (!fsEl() && active) setOff(); else if (active) fitFb(active); };
+  document.addEventListener("fullscreenchange", onFsChange);
+  document.addEventListener("webkitfullscreenchange", onFsChange);
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && active && !fsEl()) close(); });
+  window.addEventListener("resize", () => { if (active) fitFb(active); });
+
+  targets.forEach(sel => document.querySelectorAll(sel).forEach(box => {
+    const bar = document.createElement("div"); bar.className = "fsbar";
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "fsbtn"; b.innerHTML = ICON_OPEN + "Vollbild";
+    b.setAttribute("aria-label", "Element im Vollbild zeigen");
+    b.addEventListener("click", () => open(box));
+    bar.appendChild(b); box.parentNode.insertBefore(bar, box);
+    const c = document.createElement("button");
+    c.type = "button"; c.className = "fsbtn fsclose"; c.innerHTML = ICON_CLOSE + "Schließen";
+    c.setAttribute("aria-label", "Vollbild schließen");
+    c.addEventListener("click", close);
+    box.appendChild(c); box._fsOpen = b;
+  }));
 })();
 </script>
